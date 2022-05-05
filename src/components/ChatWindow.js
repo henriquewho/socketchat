@@ -14,8 +14,9 @@ function ChatWindow() {
     const [currentMessage, setCurrentMessage] = useState('');
 
     const sendMessage = e => {
-        if (currentMessage.trim().length>0){
-            console.log(`send ${currentMessage}`)
+        const trimmedMessage = currentMessage.trim(); 
+        if (trimmedMessage.length>0){
+            console.log(`send ${trimmedMessage}`)
             setCurrentMessage('');
         } else {
             setCurrentMessage(''); 
