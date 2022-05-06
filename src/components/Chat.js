@@ -5,17 +5,19 @@ import {createContext, useState} from 'react'
 
 export const ChatContext = createContext(); 
 
-function Chat() {
-    useEffect(()=>{
-        console.log('load users list and setUsers');
-    }, [])
+function Chat({socket, username}) {
     
     const [users, setUsers] = useState([
         {name: 'henrique'}, 
         {name: 'denise'}, 
         {name: 'kirk'}
     ]); 
+
     const [selectedUser, setSelectedUser] = useState(); 
+
+    useEffect(()=>{
+        console.log('load users list and setUsers');
+    }, [])
 
     const selectUser = user => {
         console.log(`${user.name} selected`)
@@ -24,7 +26,7 @@ function Chat() {
 
     return (
         <>
-            <ChatContext.Provider value={{users, setUsers, selectedUser, setSelectedUser, selectUser}}>
+            <ChatContext.Provider value={{username, socket, users, setUsers, selectedUser, setSelectedUser, selectUser}}>
                 
                 
                 <ChatWindow />

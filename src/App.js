@@ -5,6 +5,9 @@ import Chat from './components/Chat'
 
 import './scss/App.scss'
 
+//const socket = io.connect('http://localhost:3003');
+const socket = io.connect('https://warm-peak-24476.herokuapp.com/');
+
 function App() {
     
     const [username, setUsername] = useState(''); 
@@ -21,7 +24,11 @@ function App() {
             return; 
         } else {
             console.log('login with ', username, room); 
-            setLogged(true); 
+            // first check user credentials, then join
+            socket.emit('join', {username}, ()=>{
+                setLogged(true); 
+            })
+            
         }
     }
 
@@ -45,7 +52,7 @@ function App() {
                 </div>
                 : 
                 <div className='chat-page'>
-                    <Chat />
+                    <Chat socket={socket} username={username}/>
                 </div> 
             }
         </div>

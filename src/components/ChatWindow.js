@@ -3,15 +3,29 @@ import {useState, useEffect, useContext} from 'react'
 import { ChatContext } from './Chat'
 
 function ChatWindow() {
-    const {selectedUser} = useContext(ChatContext);
+    const {selectedUser, socket, username} = useContext(ChatContext);
+    const [currentMessage, setCurrentMessage] = useState('');
+    const [messages, setMessages] = useState([]); 
 
     useEffect(()=>{
         if (selectedUser) {
             console.log(`load ${selectedUser.name} msgs`)
+            // replace with the correct method to get messages for the user
+            socket.emit('findAllMessages', {}, response => {
+                console.log(response); 
+                setMessages(response); 
+            })
         }
     }, [selectedUser])
 
-    const [currentMessage, setCurrentMessage] = useState('');
+    useEffect(()=>{
+        socket.on('message', message => {
+            
+            setMessages(prev => {
+                return prev.concat(message); 
+            })
+        })
+    }, [socket])
 
     const sendMessage = e => {
         const trimmedMessage = currentMessage.trim(); 
@@ -21,6 +35,10 @@ function ChatWindow() {
         } else {
             setCurrentMessage(''); 
         }
+
+        socket.emit('createMessage', {
+            text: currentMessage, name: username
+        })
     }
 
     return (
@@ -29,7 +47,9 @@ function ChatWindow() {
             <div className='chat-body'>
 
                 <div className='message-container'>
-
+                    {messages.map(each => {
+                        return <p>{each.text}</p>
+                    })}
                 </div>
                 
             </div>
