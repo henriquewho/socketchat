@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/socketchat/static/css/main.c5d32545.css",
-    "main.js": "/socketchat/static/js/main.9c510af7.js",
+    "main.js": "/socketchat/static/js/main.a4c67f38.js",
     "index.html": "/socketchat/index.html",
     "main.c5d32545.css.map": "/socketchat/static/css/main.c5d32545.css.map",
-    "main.9c510af7.js.map": "/socketchat/static/js/main.9c510af7.js.map"
+    "main.a4c67f38.js.map": "/socketchat/static/js/main.a4c67f38.js.map"
   },
   "entrypoints": [
     "static/css/main.c5d32545.css",
-    "static/js/main.9c510af7.js"
+    "static/js/main.a4c67f38.js"
   ]
 }
