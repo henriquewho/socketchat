@@ -5,27 +5,26 @@ import Chat from './components/Chat'
 
 import './scss/App.scss'
 
-//const socket = io.connect('http://localhost:3003');
-const socket = io.connect('https://warm-peak-24476.herokuapp.com/');
+const socket = io.connect('http://localhost:3003');
+//const socket = io.connect('https://warm-peak-24476.herokuapp.com/');
 
 function App() {
-    
     const [username, setUsername] = useState(''); 
-    const [room, setRoom] = useState(''); 
+    const [password, setPassword] = useState(''); 
     const [logged, setLogged] = useState(false);
 
     const joinRoom = e => {
         e.preventDefault(); 
-        if (username.length===0 || room.length===0) {
-            alert('Name and Room must be informed');
+        if (username.length===0 || password.length===0) {
+            alert('Name and Password must be informed');
             return; 
-        } else if (username.includes(' ') || room.includes(' ')) {
-            alert('Name and Room must not have a space'); 
+        } else if (username.includes(' ') || password.includes(' ')) {
+            alert('Name and Password must not have a space'); 
             return; 
         } else {
-            console.log('login with ', username, room); 
+            console.log('login with ', username, password); 
             // first check user credentials, then join
-            socket.emit('join', {username}, ()=>{
+            socket.emit('join', {username, password}, ()=>{
                 setLogged(true); 
             })
             
@@ -43,8 +42,8 @@ function App() {
                             <form onSubmit={joinRoom}>
                                 <input type='text' placeholder='user...'
                                 onChange={e=>setUsername(e.target.value)} value={username}></input>
-                                <input type='text' placeholder='room...'
-                                onChange={e=>setRoom(e.target.value)} value={room}></input>
+                                <input type='password' placeholder='password...'
+                                onChange={e=>setPassword(e.target.value)} value={password}></input>
                                 <button onClick={joinRoom}>Join chat</button>
                             </form>
                         </div>

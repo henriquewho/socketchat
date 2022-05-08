@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {useContext} from 'react'
 import { ChatContext } from './Chat'
 
@@ -14,7 +14,11 @@ function User({user}) {
 }
 
 function Users() {
-    const {users} = useContext(ChatContext);
+    const {users, socket} = useContext(ChatContext);
+
+    useEffect(()=>{
+        socket.emit('usersList');
+    }, [socket])
 
     return (
         <div className='users'>

@@ -16,8 +16,10 @@ function Chat({socket, username}) {
     const [selectedUser, setSelectedUser] = useState(); 
 
     useEffect(()=>{
-        console.log('load users list and setUsers');
-    }, [])
+        socket.emit('usersList', res => {
+            console.log('list of users: ', res); 
+        })
+    }, [socket])
 
     const selectUser = user => {
         console.log(`${user.name} selected`)
